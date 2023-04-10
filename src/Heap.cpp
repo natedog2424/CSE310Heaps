@@ -22,6 +22,8 @@ void Heap::Resize(Heap* heap, int n)
         delete[] heap->H;
         heap->H = new_arr;
     }
+
+    heap->capacity = n;
 }
 
 Heap::Heap()
@@ -111,7 +113,18 @@ void Heap::Insert(Heap* heap, HeapElement k, Flag flag)
     if(flag == kPrint) Heap::PrintHeap(heap);
 
     if(heap->size == heap->capacity){
-        Heap::Resize(heap, heap->capacity * 2);
+        //Find nearest power of 2 using bit twiddling described here:
+        //https://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2
+
+        unsigned int v = heap->capacity;
+        v--;
+        v |= v >> 1;
+        v |= v >> 2;
+        v |= v >> 4;
+        v |= v >> 8;
+        v |= v >> 16;
+        v++;
+        Heap::Resize(heap, v);
     }
 
     int key = k.key;
@@ -136,9 +149,10 @@ HeapElement Heap::DeleteMin(Heap* heap, Flag flag)
     heap->H[0] = heap->H[heap->size - 1];
     heap->size--;
     Heap::MinHeapify(heap, 0);
-    return min;
 
     if(flag == kPrint) Heap::PrintHeap(heap);
+
+    return min;
 }
 
 void Heap::DecreaseKey(Heap* heap, int index, int value, Flag flag)
@@ -166,12 +180,11 @@ void Heap::DecreaseKey(Heap* heap, int index, int value, Flag flag)
 
 void Heap::PrintHeap(Heap* heap)
 {
-    cout << "Heap Capacity: " << heap->capacity << endl;
-    cout << "Heap Size: " << heap->size << endl;
+    cout << "The capacity is " << heap->capacity << "." << endl;
+    cout << "Size is " << heap->size << "." << endl;
     if(heap->size > 0){
-        cout << "Heap Elements: ";
         for(int i = 0; i < heap->size; i++){
-            cout << heap->H[i].key << " ";
+            cout << heap->H[i].key << "\n";
         }
         cout << endl;
     }
