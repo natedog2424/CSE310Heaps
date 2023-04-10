@@ -7,7 +7,7 @@ This project impliments a min heap data structure in c++ along with a set of com
 Build to executable `main` using `make` command or simply use `make run` to build and run the executable.
 ```make clean``` is also available in the event that the build directory needs to be cleaned.
 
-## Directory Structure
+## Directory Structure (after build)
 ```
 .
 ├── obj/
