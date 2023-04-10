@@ -1,3 +1,4 @@
 /HEAPinput.txt
 obj/*
+!obj/.gitkeep
 main
