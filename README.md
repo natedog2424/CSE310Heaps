@@ -1,6 +1,6 @@
 # Project 1: Min Heap
 
-This project impliments a min heap data structure in c++ along with a set of commands to interface with the heap.
+This project implements a min heap data structure in C++ along with a set of commands to interface with the heap.
 
 ## Build Instructions
 
